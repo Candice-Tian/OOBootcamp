@@ -22,4 +22,13 @@ public class ParkingLot {
         ParkedCars.add(carNumber);
         return "succeed";
     }
+
+    public String picking(String carNumber){
+        if(ParkedCars.contains(carNumber)){
+            ParkedCars.remove(carNumber);
+            return "succeed";
+        }
+        return "failed";
+
+    }
 }

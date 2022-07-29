@@ -12,7 +12,4 @@ public class OOBootcamp {
     {
         return _message;
     }
-
-
-
 }
