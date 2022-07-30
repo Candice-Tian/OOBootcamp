@@ -19,4 +19,6 @@ public class Result {
     public void setTicket(Ticket ticket) {
         this.ticket = ticket;
     }
+
+    public String test;
 }

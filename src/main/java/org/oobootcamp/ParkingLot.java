@@ -15,19 +15,30 @@ public class ParkingLot {
 
     private ArrayList<String> ParkedCars = new ArrayList<>();
 
-    public Result parking(String carNumber){
-        Result result=new Result();
-        if(getFreeSpace()>0){
+    public Result parking(String carNumber) {
+        Result result = new Result();
+        if (getFreeSpace() > 0) {
             ParkedCars.add(carNumber);
             result.setCode("停车成功");
-            Ticket ticket=new Ticket();
-            ticket.setCarNum(carNumber);
+            Ticket ticket = new Ticket(carNumber);
             result.setTicket(ticket);
-            return result;
+        } else {
+            result.setCode("停车失败, 停车位已满");
         }
-        return  null;
-
+        return result;
     }
 
 
+    public Result unparking(Ticket ticket) {
+        Result result = new Result();
+        if(isTicketValid(ticket)){
+            ParkedCars.remove(ticket.getCarNum());
+            result.setCode("取车成功");
+        }
+        return result;
+    }
+
+    private Boolean isTicketValid(Ticket ticket){
+        return ParkedCars.contains(ticket.getCarNum());
+    }
 }
