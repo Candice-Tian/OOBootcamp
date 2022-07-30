@@ -15,6 +15,7 @@ public class GraduateParkingBoy {
             if (parkingLot.getFreeSpace() > 0) {
                 result = parkingLot.parking(carNumber);
                 result.getTicket().setParkNum(parkingLot.getParkingLotNumber());
+                break;
             }
         }
         return result;
