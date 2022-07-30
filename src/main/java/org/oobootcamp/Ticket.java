@@ -1,8 +1,9 @@
 package org.oobootcamp;
 
 public class Ticket {
-    public Ticket(String carNum) {
+    public Ticket(String carNum, Integer parkNum) {
         CarNum = carNum;
+        ParkNum = parkNum;
     }
 
     private String CarNum;
@@ -17,6 +18,7 @@ public class Ticket {
 
 
     private Integer ParkNum;
+
     public Integer getParkNum() {
         return ParkNum;
     }

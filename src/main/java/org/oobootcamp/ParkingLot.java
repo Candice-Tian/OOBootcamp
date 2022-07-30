@@ -26,7 +26,7 @@ public class ParkingLot {
         if (getFreeSpace() > 0) {
             ParkedCars.add(carNumber);
             result.setCode("停车成功");
-            Ticket ticket = new Ticket(carNumber);
+            Ticket ticket = new Ticket(carNumber,1);
             result.setTicket(ticket);
         } else {
             result.setCode("停车失败, 停车位已满");

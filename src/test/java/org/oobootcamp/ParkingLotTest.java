@@ -40,7 +40,7 @@ public class ParkingLotTest {
         parkingLot.parking("A");
         parkingLot.parking("B");
 
-        Ticket ticket = new Ticket("A");
+        Ticket ticket = new Ticket("A",1);
         Result result = parkingLot.unparking(ticket);
         assertThat(result.getCode()).isEqualTo("取车成功");
         assertThat(parkingLot.getFreeSpace()).isEqualTo(29);
@@ -54,7 +54,7 @@ public class ParkingLotTest {
         ParkingLot parkingLot = new ParkingLot(1, 30);
         parkingLot.parking("C");
 
-        Ticket ticket = new Ticket("A");
+        Ticket ticket = new Ticket("A",1);
         Result result = parkingLot.unparking(ticket);
         assertThat(result.getCode()).isEqualTo("取车失败, 停车票无效");
         assertThat(parkingLot.getFreeSpace()).isEqualTo(29);
