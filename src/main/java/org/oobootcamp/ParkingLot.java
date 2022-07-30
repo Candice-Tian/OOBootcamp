@@ -31,14 +31,16 @@ public class ParkingLot {
 
     public Result unparking(Ticket ticket) {
         Result result = new Result();
-        if(isTicketValid(ticket)){
+        if (isTicketValid(ticket)) {
             ParkedCars.remove(ticket.getCarNum());
             result.setCode("取车成功");
+        } else {
+            result.setCode("取车失败, 停车票无效");
         }
         return result;
     }
 
-    private Boolean isTicketValid(Ticket ticket){
+    private Boolean isTicketValid(Ticket ticket) {
         return ParkedCars.contains(ticket.getCarNum());
     }
 }
