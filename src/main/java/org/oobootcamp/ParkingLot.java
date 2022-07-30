@@ -3,10 +3,16 @@ package org.oobootcamp;
 import java.util.ArrayList;
 
 public class ParkingLot {
+    private final Integer ParkingLotNumber;
     private final Integer TotalCarSpace;
 
-    public ParkingLot(Integer totalCarSpace) {
+    public ParkingLot(Integer parkingLotNumber, Integer totalCarSpace) {
+        ParkingLotNumber = parkingLotNumber;
         TotalCarSpace = totalCarSpace;
+    }
+
+    public Integer getParkingLotNumber() {
+        return ParkingLotNumber;
     }
 
     public Integer getFreeSpace() {
