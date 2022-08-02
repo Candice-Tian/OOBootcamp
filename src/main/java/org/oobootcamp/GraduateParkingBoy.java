@@ -1,9 +1,11 @@
 package org.oobootcamp;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 
 public class GraduateParkingBoy {
     private final ArrayList<ParkingLot> ParkingLots;
+    private HashMap<String,Integer> ParkinglotCarMap = new HashMap<String, Integer>();
 
     public GraduateParkingBoy(ArrayList<ParkingLot> parkingLots) {
         ParkingLots = parkingLots;
@@ -14,7 +16,7 @@ public class GraduateParkingBoy {
         for (ParkingLot parkingLot : ParkingLots) {
             if (parkingLot.getFreeSpace() > 0) {
                 result = parkingLot.parking(carNumber);
-                result.getTicket().setParkNum(parkingLot.getParkingLotNumber());
+                ParkinglotCarMap.put(carNumber,parkingLot.getParkingLotNumber());
                 return result;
             }
         }
@@ -23,7 +25,7 @@ public class GraduateParkingBoy {
     }
 
     public Result unparking(Ticket ticket) {
-        ParkingLot lot = GetParkingLotByNum(ticket.getParkNum());
+        ParkingLot lot = getParkingLotByCarNum(ticket.getCarNum());
         if (lot != null) {
             return lot.unparking(ticket);
         }
@@ -32,7 +34,8 @@ public class GraduateParkingBoy {
         return result;
     }
 
-    private ParkingLot GetParkingLotByNum(Integer parkNum) {
+    private ParkingLot getParkingLotByCarNum(String carNum) {
+        Integer parkNum = this.ParkinglotCarMap.get(carNum);
         for (ParkingLot parkingLot : ParkingLots) {
             if (parkingLot.getParkingLotNumber().equals(parkNum)) {
                 return parkingLot;
