@@ -16,7 +16,7 @@ public class ParkingLotTest {
         assertThat(result.getTicket() != null);
     }
 
-//    Given 停车场共2个停车位，已经停了2个车辆，空闲车位0个, When 申请停车时, Then 停车失败, 返回{"code":"停车失败, 停车位已满", "data":null}
+//    Given 停车场共2个停车位，已经停了2个车辆，空闲车位0个, When 申请停车时, Then 停车失败, 返回{"code":"停车失败, 停车位已满", "ticket":null}
     @Test
     void should_parking_failed_when_parking_given_has_not_free_space() {
         ParkingLot parkingLot = new ParkingLot(1, 2);
@@ -27,7 +27,7 @@ public class ParkingLotTest {
         assertThat(result.getCode()).isEqualTo("停车失败, 停车位已满");
     }
 
-//     Given 停车票{carNum:"A"}有效, When 使用该停车票申请取车A时, Then 取车成功，空闲车位+1
+//     Given 停车场已停车辆["A"], When 使用停车票{carNum:"A"} 申请取车A时, Then 取车成功
     @Test
     void should_unparking_succeed_when_unparking_given_ticket_is_valid() {
         ParkingLot parkingLot = new ParkingLot(1, 30);
@@ -38,8 +38,7 @@ public class ParkingLotTest {
     }
 
 //    Example
-//    Given 停车票{carNum:"A"}无效时， When使用该停车票申请取车A, Then 取车失败，返回{"code":"取车失败, 停车票无效", "data":null}
-
+//    Given 停车场已停车辆["C"], When 使用停车票{carNum:"A"} 申请取车A时, Then 取车失败，返回{"code":"取车失败, 停车票无效"}
     @Test
     void should_unparking_failed_when_unparking_given_ticket_is_invalid() {
         ParkingLot parkingLot = new ParkingLot(1, 30);
@@ -50,6 +49,7 @@ public class ParkingLotTest {
         assertThat(result.getCode()).isEqualTo("取车失败, 停车票无效");
     }
 
+    // Given 停车场已停车辆["A"] 使用停车票{carNum:"A"}取走A车，When再次使用停车票{carNum:"A"} 申请取车A时, Then 取车失败，返回{"code":"取车失败, 停车票无效"}
     @Test
     void should_unparking_failed_when_unparking_given_ticket_is_used() {
         ParkingLot parkingLot = new ParkingLot(1, 30);
