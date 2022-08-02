@@ -13,7 +13,7 @@ public class ParkingLotTest {
         Result result = parkingLot.parking("A");
 
         assertThat(result.getCode()).isEqualTo("停车成功");
-        assertThat(result.getTicket() != null);
+        assertThat(result.getTicket()).isNotNull();
     }
 
 //    Given 停车场共2个停车位，已经停了2个车辆，空闲车位0个, When 申请停车时, Then 停车失败, 返回{"code":"停车失败, 停车位已满", "ticket":null}
