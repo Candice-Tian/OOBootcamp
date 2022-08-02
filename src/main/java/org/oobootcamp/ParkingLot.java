@@ -4,11 +4,11 @@ import java.util.ArrayList;
 
 public class ParkingLot {
     private final Integer ParkingLotNumber;
-    private final Integer TotalCarSpace;
+    private final Integer capacity;
 
-    public ParkingLot(Integer parkingLotNumber, Integer totalCarSpace) {
+    public ParkingLot(Integer parkingLotNumber, Integer capacity) {
         ParkingLotNumber = parkingLotNumber;
-        TotalCarSpace = totalCarSpace;
+        this.capacity = capacity;
     }
 
     public Integer getParkingLotNumber() {
@@ -16,7 +16,7 @@ public class ParkingLot {
     }
 
     public Integer getFreeSpace() {
-        return TotalCarSpace - ParkedCars.size();
+        return capacity - ParkedCars.size();
     }
 
     private ArrayList<String> ParkedCars = new ArrayList<>();

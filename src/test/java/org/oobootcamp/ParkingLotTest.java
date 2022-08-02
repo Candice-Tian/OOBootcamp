@@ -15,8 +15,7 @@ public class ParkingLotTest {
         Result result = parkingLot.parking("A");
 
         assertThat(result.getCode()).isEqualTo("停车成功");
-        assertThat(result.getTicket().getCarNum()).isEqualTo("A");
-        assertThat(parkingLot.getFreeSpace()).isEqualTo(29);
+        assertThat(result.getTicket() != null);
     }
 
     //    Example
@@ -29,7 +28,6 @@ public class ParkingLotTest {
 
         Result result = parkingLot.parking("C");
         assertThat(result.getCode()).isEqualTo("停车失败, 停车位已满");
-        assertThat(parkingLot.getFreeSpace()).isEqualTo(0);
     }
 
     //     Example
@@ -37,26 +35,32 @@ public class ParkingLotTest {
     @Test
     void should_unparking_succeed_when_unparking_given_ticket_is_valid() {
         ParkingLot parkingLot = new ParkingLot(1, 30);
-        parkingLot.parking("A");
-        parkingLot.parking("B");
+        Ticket ticket = parkingLot.parking("A").getTicket();
 
-        Ticket ticket = new Ticket("A",1);
         Result result = parkingLot.unparking(ticket);
         assertThat(result.getCode()).isEqualTo("取车成功");
-        assertThat(parkingLot.getFreeSpace()).isEqualTo(29);
     }
 
 //    Example
 //    Given 停车票{carNum:"A"}无效时， When使用该停车票申请取车A, Then 取车失败，返回{"code":"取车失败, 停车票无效", "data":null}
 
     @Test
-    void should_unparking_succeed_when_unparking_given_ticket_is_invalid() {
+    void should_unparking_failed_when_unparking_given_ticket_is_invalid() {
         ParkingLot parkingLot = new ParkingLot(1, 30);
         parkingLot.parking("C");
 
-        Ticket ticket = new Ticket("A",1);
+        Ticket ticket = new Ticket("A", 1);
         Result result = parkingLot.unparking(ticket);
         assertThat(result.getCode()).isEqualTo("取车失败, 停车票无效");
-        assertThat(parkingLot.getFreeSpace()).isEqualTo(29);
+    }
+
+    @Test
+    void should_unparking_failed_when_unparking_given_ticket_is_used() {
+        ParkingLot parkingLot = new ParkingLot(1, 30);
+        Ticket ticket = parkingLot.parking("A").getTicket();
+        parkingLot.unparking(ticket);
+
+        Result result = parkingLot.unparking(ticket);
+        assertThat(result.getCode()).isEqualTo("取车失败, 停车票无效");
     }
 }
