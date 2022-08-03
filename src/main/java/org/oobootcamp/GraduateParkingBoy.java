@@ -4,8 +4,8 @@ import java.util.ArrayList;
 import java.util.HashMap;
 
 public class GraduateParkingBoy {
-    private final ArrayList<ParkingLot> ParkingLots;
-    private HashMap<String,Integer> ParkinglotCarMap = new HashMap<String, Integer>();
+    protected final ArrayList<ParkingLot> ParkingLots;
+    protected HashMap<String,Integer> ParkinglotCarMap = new HashMap<>();
 
     public GraduateParkingBoy(ArrayList<ParkingLot> parkingLots) {
         ParkingLots = parkingLots;
