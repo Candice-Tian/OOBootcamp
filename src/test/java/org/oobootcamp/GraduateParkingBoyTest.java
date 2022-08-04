@@ -17,6 +17,7 @@ public class GraduateParkingBoyTest {
         parkingLots.add(parkingLot);
         GraduateParkingBoy graduateParkingBoy = new GraduateParkingBoy(parkingLots);
         Car car = new Car();
+
         Ticket ticket = graduateParkingBoy.parking(car);
 
         assertThat(ticket).isNotNull();
@@ -83,7 +84,7 @@ public class GraduateParkingBoyTest {
     }
 
     @Test
-    void should_picking_failed_when_picking_given_ticekt_is_invalid() throws Exception {
+    void should_picking_failed_when_picking_given_ticket_is_invalid() throws Exception {
         ArrayList<ParkingLot> parkingLots = new ArrayList<>();
         ParkingLot parkingLot = new ParkingLot(30);
         parkingLots.add(parkingLot);
@@ -95,7 +96,7 @@ public class GraduateParkingBoyTest {
     }
 
     @Test
-    void should_picking_failed_when_picking_given_ticekt_is_used() throws Exception {
+    void should_picking_failed_when_picking_given_ticket_is_used() throws Exception {
         ArrayList<ParkingLot> parkingLots = new ArrayList<>();
         ParkingLot parkingLot = new ParkingLot(30);
         parkingLots.add(parkingLot);
