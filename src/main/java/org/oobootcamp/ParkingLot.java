@@ -1,10 +1,14 @@
 package org.oobootcamp;
 
+import org.oobootcamp.Exception.InvalidTicketException;
+import org.oobootcamp.Exception.ParkingLotFullException;
+
 import java.util.ArrayList;
+import java.util.HashMap;
 
 public class ParkingLot {
-    private final Integer ParkingLotNumber;
-    private final Integer capacity;
+    private Integer ParkingLotNumber;
+    private Integer capacity;
 
     public ParkingLot(Integer parkingLotNumber, Integer capacity) {
         ParkingLotNumber = parkingLotNumber;
@@ -19,34 +23,30 @@ public class ParkingLot {
         return capacity - ParkedCars.size();
     }
 
-    private ArrayList<String> ParkedCars = new ArrayList<>();
+    private HashMap<Ticket,Car> ParkedCars = new HashMap<Ticket,Car>();
 
-    public Result parking(String carNumber) {
-        Result result = new Result();
+    public Ticket parking(Car car) throws ParkingLotFullException {
         if (getFreeSpace() > 0) {
-            ParkedCars.add(carNumber);
-            result.setCode("停车成功");
-            Ticket ticket = new Ticket(carNumber);
-            result.setTicket(ticket);
-        } else {
-            result.setCode("停车失败, 停车位已满");
+            Ticket ticket=new Ticket();
+            ParkedCars.put(ticket,car);
+            return ticket;
         }
-        return result;
+
+        throw new ParkingLotFullException();
     }
 
 
-    public Result unparking(Ticket ticket) {
+    public Car picking(Ticket ticket) throws InvalidTicketException {
         Result result = new Result();
         if (isTicketValid(ticket)) {
-            ParkedCars.remove(ticket.getCarNum());
-            result.setCode("取车成功");
-        } else {
-            result.setCode("取车失败, 停车票无效");
+            Car car= ParkedCars.get(ticket);
+            ParkedCars.remove(ticket);
+            return car;
         }
-        return result;
+       throw  new InvalidTicketException();
     }
 
     private Boolean isTicketValid(Ticket ticket) {
-        return ParkedCars.contains(ticket.getCarNum());
+        return ParkedCars.containsKey(ticket);
     }
 }
