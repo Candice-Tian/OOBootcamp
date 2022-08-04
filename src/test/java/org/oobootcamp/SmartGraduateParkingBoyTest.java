@@ -77,41 +77,41 @@
 //
 //    //Given Ticket有效（车辆A在停车场时） When 取车A时，Then取车成功
 //    @Test
-//    void should_unparking_succeed_when_unparking_given_ticket_valid() {
+//    void should_picking_succeed_when_picking_given_ticket_valid() {
 //        ArrayList<ParkingLot> parkingLots = new ArrayList<>();
 //        parkingLots.add(new ParkingLot(1, 2));
 //        parkingLots.add(new ParkingLot(2, 2));
 //        SmartGraduateParkingBoy smartGraduateParkingBoy = new SmartGraduateParkingBoy(parkingLots);
 //        Ticket ticket = smartGraduateParkingBoy.parking("A").getTicket();
 //
-//        Result result = smartGraduateParkingBoy.unparking(ticket);
+//        Result result = smartGraduateParkingBoy.picking(ticket);
 //
 //        assertThat(result.getCode()).isEqualTo("取车成功");
 //    }
 //
 //    //Given 共1个停车场，有2个车位，停车场已停车辆["C"]，When使用停车票{carNum:"A"} 申请取车A时, Then 取车失败，返回{"code":"取车失败, 停车票无效"}
 //    @Test
-//    void should_unparking_failed_when_unparking_given_ticekt_is_invalid() {
+//    void should_picking_failed_when_picking_given_ticekt_is_invalid() {
 //        ArrayList<ParkingLot> parkingLots = new ArrayList<>();
 //        parkingLots.add(new ParkingLot(1, 2));
 //        GraduateParkingBoy smartGraduateParkingBoy = new SmartGraduateParkingBoy(parkingLots);
 //        smartGraduateParkingBoy.parking("C");
 //
 //        Ticket ticket =new Ticket("A");
-//        Result result = smartGraduateParkingBoy.unparking(ticket);
+//        Result result = smartGraduateParkingBoy.picking(ticket);
 //        assertThat(result.getCode()).isEqualTo("取车失败, 停车票无效");
 //    }
 //
 //    //Given 共1个停车场，有2个车位，停车场已停车辆["A"]，使用停车票{carNum:"A"} 取走A车，When再次使用停车票{carNum:"A"} 申请取车A时, Then 取车失败，返回{"code":"取车失败, 停车票无效"}
 //    @Test
-//    void should_unparking_failed_when_unparking_given_ticekt_is_used() {
+//    void should_picking_failed_when_picking_given_ticekt_is_used() {
 //        ArrayList<ParkingLot> parkingLots = new ArrayList<>();
 //        parkingLots.add(new ParkingLot(1, 2));
 //        GraduateParkingBoy smartGraduateParkingBoy = new SmartGraduateParkingBoy(parkingLots);
 //        Ticket ticket = smartGraduateParkingBoy.parking("A").getTicket();
-//        smartGraduateParkingBoy.unparking(ticket);
+//        smartGraduateParkingBoy.picking(ticket);
 //
-//        Result result = smartGraduateParkingBoy.unparking(ticket);
+//        Result result = smartGraduateParkingBoy.picking(ticket);
 //        assertThat(result.getCode()).isEqualTo("取车失败, 停车票无效");
 //    }
 //

@@ -3,27 +3,20 @@ package org.oobootcamp;
 import org.oobootcamp.Exception.InvalidTicketException;
 import org.oobootcamp.Exception.ParkingLotFullException;
 
-import java.util.ArrayList;
 import java.util.HashMap;
 
 public class ParkingLot {
-    private Integer ParkingLotNumber;
-    private Integer capacity;
+    private final Integer capacity;
 
-    public ParkingLot(Integer parkingLotNumber, Integer capacity) {
-        ParkingLotNumber = parkingLotNumber;
+    public ParkingLot(Integer capacity) {
         this.capacity = capacity;
-    }
-
-    public Integer getParkingLotNumber() {
-        return ParkingLotNumber;
     }
 
     public Integer getFreeSpace() {
         return capacity - ParkedCars.size();
     }
 
-    private HashMap<Ticket,Car> ParkedCars = new HashMap<Ticket,Car>();
+    private HashMap<Ticket,Car> ParkedCars = new HashMap<>();
 
     public Ticket parking(Car car) throws ParkingLotFullException {
         if (getFreeSpace() > 0) {
@@ -37,7 +30,6 @@ public class ParkingLot {
 
 
     public Car picking(Ticket ticket) throws InvalidTicketException {
-        Result result = new Result();
         if (isTicketValid(ticket)) {
             Car car= ParkedCars.get(ticket);
             ParkedCars.remove(ticket);
@@ -46,7 +38,7 @@ public class ParkingLot {
        throw  new InvalidTicketException();
     }
 
-    private Boolean isTicketValid(Ticket ticket) {
+    public Boolean isTicketValid(Ticket ticket) {
         return ParkedCars.containsKey(ticket);
     }
 }
