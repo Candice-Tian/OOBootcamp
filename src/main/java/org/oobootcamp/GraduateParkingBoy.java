@@ -13,13 +13,12 @@ public class GraduateParkingBoy extends ParkingBoy {
 
     @Override
     public Ticket parking(Car car) throws ParkingLotFullException {
-        for (ParkingLot parkingLot : ParkingLots) {
-            if (parkingLot.getFreeSpace() > 0) {
-                Ticket ticket = parkingLot.parking(car);
-                TicketParkinglotMap.put(ticket, parkingLot);
-                return ticket;
-            }
+        ParkingLot parkingLot= ParkingLots.stream().filter(p->p.getFreeSpace()>0).findFirst().orElse(null);
+        if(parkingLot==null){
+            throw new ParkingLotFullException();
         }
-        throw new ParkingLotFullException();
+        Ticket ticket = parkingLot.parking(car);
+        TicketParkinglotMap.put(ticket, parkingLot);
+        return ticket;
     }
 }
