@@ -8,19 +8,26 @@ import java.util.HashMap;
 
 public abstract class ParkingBoy {
     protected ArrayList<ParkingLot> ParkingLots;
-    protected HashMap<Ticket, ParkingLot> TicketParkinglotMap = new HashMap<>();
+    protected HashMap<Ticket, ParkingLot> ticketParkingLotMap = new HashMap<>();
 
     public Car picking(Ticket ticket) throws InvalidTicketException {
-        ParkingLot parkingLot = getParkingLotByTicket(ticket);
+        ParkingLot parkingLot = ticketParkingLotMap.get(ticket);
         if (parkingLot != null) {
             return parkingLot.picking(ticket);
         }
         throw new InvalidTicketException();
     }
 
-    private ParkingLot getParkingLotByTicket(Ticket ticket) {
-        return TicketParkinglotMap.get(ticket);
+    public Ticket parking(Car car) throws ParkingLotFullException {
+        ParkingLot parkingLot = getAvailableParkingLot();
+
+        if (parkingLot != null) {
+            Ticket ticket = parkingLot.parking(car);
+            ticketParkingLotMap.put(ticket, parkingLot);
+            return ticket;
+        }
+        throw new ParkingLotFullException();
     }
 
-    public abstract Ticket parking(Car car) throws ParkingLotFullException;
+    public abstract ParkingLot getAvailableParkingLot() throws ParkingLotFullException;
 }
