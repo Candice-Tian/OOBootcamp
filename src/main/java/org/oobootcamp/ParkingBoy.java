@@ -8,12 +8,12 @@ import java.util.HashMap;
 
 public abstract class ParkingBoy {
     protected ArrayList<ParkingLot> ParkingLots;
-    protected HashMap<Ticket, ParkingLot> ticketParkingLotMap = new HashMap<>();
 
     public Car picking(Ticket ticket) throws InvalidTicketException {
-        ParkingLot parkingLot = ticketParkingLotMap.get(ticket);
-        if (parkingLot != null) {
-            return parkingLot.picking(ticket);
+        for (ParkingLot parkingLot : ParkingLots) {
+            if (parkingLot.isTicketValid(ticket)) {
+                return parkingLot.picking(ticket);
+            }
         }
         throw new InvalidTicketException();
     }
@@ -23,11 +23,11 @@ public abstract class ParkingBoy {
 
         if (parkingLot != null) {
             Ticket ticket = parkingLot.parking(car);
-            ticketParkingLotMap.put(ticket, parkingLot);
             return ticket;
         }
         throw new ParkingLotFullException();
     }
 
     public abstract ParkingLot getAvailableParkingLot() throws ParkingLotFullException;
+
 }

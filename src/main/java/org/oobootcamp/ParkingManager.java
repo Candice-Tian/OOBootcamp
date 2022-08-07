@@ -4,7 +4,6 @@ import org.oobootcamp.Exception.InvalidTicketException;
 import org.oobootcamp.Exception.ParkingLotFullException;
 
 import java.util.ArrayList;
-import java.util.List;
 
 public class ParkingManager extends GraduateParkingBoy implements IManager {
     protected ArrayList<ParkingBoy> ParkingBoys = new ArrayList<>();
@@ -28,12 +27,19 @@ public class ParkingManager extends GraduateParkingBoy implements IManager {
 
     public Car managePicking(Ticket ticket) throws InvalidTicketException {
         for (ParkingBoy parkingBoy : ParkingBoys) {
-           try{
-             return parkingBoy.picking(ticket);
-
-           }catch (InvalidTicketException ex){
-           }
+            if (isTicketValid(ticket, parkingBoy)) {
+               return parkingBoy.picking(ticket);
+            }
         }
         throw new InvalidTicketException();
+    }
+
+    private Boolean isTicketValid(Ticket ticket, ParkingBoy parkingBoy) {
+        for (ParkingLot parkingLot : parkingBoy.ParkingLots) {
+            if (parkingLot.isTicketValid(ticket)) {
+               return true;
+            }
+        }
+        return false;
     }
 }
