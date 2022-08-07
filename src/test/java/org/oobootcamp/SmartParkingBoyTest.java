@@ -20,7 +20,7 @@ public class SmartParkingBoyTest {
         ParkingLot parkingLot2 = new ParkingLot(2);
         ParkingLot parkingLot3 = new ParkingLot(2);
         parkingLot3.parking(new Car());
-        SmartParkingBoy smartParkingBoy = BuildSmartParkingBoy(parkingLot1, parkingLot2, parkingLot3);
+        SmartParkingBoy smartParkingBoy = TestHelper.BuildSmartParkingBoy(parkingLot1, parkingLot2, parkingLot3);
 
         Car car = new Car();
         Ticket ticket = smartParkingBoy.parking(car);
@@ -34,7 +34,7 @@ public class SmartParkingBoyTest {
         ParkingLot parkingLot2 = new ParkingLot(2);
         parkingLot2.parking(new Car());
         ParkingLot parkingLot3 = new ParkingLot(2);
-        SmartParkingBoy smartParkingBoy = BuildSmartParkingBoy(parkingLot1, parkingLot2, parkingLot3);
+        SmartParkingBoy smartParkingBoy = TestHelper.BuildSmartParkingBoy(parkingLot1, parkingLot2, parkingLot3);
 
         Car car = new Car();
         Ticket ticket = smartParkingBoy.parking(car);
@@ -44,7 +44,7 @@ public class SmartParkingBoyTest {
 
     @Test
     void should_parking_failed_when_parking_given_2_parking_lot_and_both_have_no_free_space() throws ParkingLotFullException {
-        SmartParkingBoy smartParkingBoy = BuildSmartParkingBoy(new ParkingLot(1), new ParkingLot(1));
+        SmartParkingBoy smartParkingBoy = TestHelper.BuildSmartParkingBoy(new ParkingLot(1), new ParkingLot(1));
 
         smartParkingBoy.parking(new Car());
         smartParkingBoy.parking(new Car());
@@ -54,7 +54,7 @@ public class SmartParkingBoyTest {
 
     @Test
     void should_picking_succeed_when_picking_given_ticket_is_valid() throws Exception {
-        SmartParkingBoy smartParkingBoy = BuildSmartParkingBoy(new ParkingLot(2));
+        SmartParkingBoy smartParkingBoy = TestHelper.BuildSmartParkingBoy(new ParkingLot(2));
 
         Car car = new Car();
         Ticket ticket = smartParkingBoy.parking(car);
@@ -64,7 +64,7 @@ public class SmartParkingBoyTest {
 
     @Test
     void should_picking_failed_when_picking_given_ticket_is_invalid() throws Exception {
-        SmartParkingBoy smartParkingBoy = BuildSmartParkingBoy(new ParkingLot(2));
+        SmartParkingBoy smartParkingBoy = TestHelper.BuildSmartParkingBoy(new ParkingLot(2));
         smartParkingBoy.parking(new Car());
 
         assertThrows(InvalidTicketException.class, () -> smartParkingBoy.picking(new Ticket()));
@@ -72,15 +72,11 @@ public class SmartParkingBoyTest {
 
     @Test
     void should_picking_failed_when_picking_given_ticket_is_used() throws Exception {
-        SmartParkingBoy smartParkingBoy = BuildSmartParkingBoy(new ParkingLot(2));
+        SmartParkingBoy smartParkingBoy = TestHelper.BuildSmartParkingBoy(new ParkingLot(2));
 
         Ticket ticket = smartParkingBoy.parking(new Car());
         smartParkingBoy.picking(ticket);
 
         assertThrows(InvalidTicketException.class, () -> smartParkingBoy.picking(ticket));
-    }
-
-    private SmartParkingBoy BuildSmartParkingBoy(ParkingLot... parkingLots) {
-        return new SmartParkingBoy(new ArrayList<>(Arrays.asList(parkingLots)));
     }
 }
