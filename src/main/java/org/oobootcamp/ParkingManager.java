@@ -1,5 +1,6 @@
 package org.oobootcamp;
 
+import org.oobootcamp.Exception.InvalidTicketException;
 import org.oobootcamp.Exception.ParkingLotFullException;
 
 import java.util.ArrayList;
@@ -25,7 +26,14 @@ public class ParkingManager extends GraduateParkingBoy implements IManager {
         throw new ParkingLotFullException();
     }
 
-    public Car managePicking(Ticket ticket) {
-        return null;
+    public Car managePicking(Ticket ticket) throws InvalidTicketException {
+        for (ParkingBoy parkingBoy : ParkingBoys) {
+           try{
+             return parkingBoy.picking(ticket);
+
+           }catch (InvalidTicketException ex){
+           }
+        }
+        throw new InvalidTicketException();
     }
 }
